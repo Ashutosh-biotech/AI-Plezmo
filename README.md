@@ -1,6 +1,6 @@
-# Plezmo AI - Personal Portfolio & Blog Platform
+# Plezmo AI - Plezmo Support & Blog Platform
 
-A Django-based web application that serves as a personal portfolio and blog platform with user authentication, project showcase, and interactive features.
+A Django-based web application that serves as a plezmo support and blog platform with user authentication, project showcase, and interactive features.
 
 ## 🚀 Features
 
@@ -59,7 +59,7 @@ A Django-based web application that serves as a personal portfolio and blog plat
 
 3. **Install dependencies**
    ```bash
-   pip install -r plezmo/requirements.txt
+   pip install -r requirements.txt
    ```
 
 4. **Configure environment variables**
