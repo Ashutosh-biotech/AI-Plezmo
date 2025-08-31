@@ -1,4 +1,4 @@
-# Plezmo AI - Plezmo Support & Blog Platform
+# AI Plezmo (Ashutosh Intelligence Plezmo) - Plezmo Support & Blog Platform
 
 A Django-based web application that serves as a plezmo support and blog platform with user authentication, project showcase, and interactive features.
 
@@ -220,6 +220,11 @@ For production deployment:
 ## 🐛 Bug Reports
 
 If you find any bugs or issues, please report them through the application's built-in error reporting system or create an issue in the repository.
+
+## NOTE
+
+If you ever thought of this project name AI mean Artificial Intelligence, you are wrong, this project was made before or the initial phase of AI, therefore this project is made by me sololy, without anyone or AI help.
+
 
 ## 📞 Support
 
