@@ -221,7 +221,7 @@ For production deployment:
 
 If you find any bugs or issues, please report them through the application's built-in error reporting system or create an issue in the repository.
 
-## NOTE
+## ❗NOTE
 
 If you ever thought of this project name AI mean Artificial Intelligence, you are wrong, this project was made before or the initial phase of AI, therefore this project is made by me sololy, without anyone or AI help.
 
