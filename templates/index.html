@@ -1,0 +1,83 @@
+{% extends 'template.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block pics_url %}{{ pic }}{% endblock pics_url %}
+
+{% block home_active %}active{% endblock home_active %}
+{% block body %}
+<main class="page landing-page">
+        <section class="clean-block clean-hero" style="background-image: url('/assets/img/tech/image4.jpg');color: rgba(9, 162, 255, 0.85);">
+            <div data-aos="zoom-in" data-aos-duration="750" data-aos-delay="50" data-aos-once="true" class="text">
+                <h2>Help Your Self</h2>
+                <p>You will learn new thing from beginning to end.</p><a href="#explore"><button class="btn btn-outline-light btn-lg shadow-lg" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="left" type="button" title="Let's Learn More">EXPLORE</button></a>
+            </div>
+        </section>
+        <section data-aos="zoom-in-up" data-aos-duration="750" data-aos-delay="50" data-aos-once="true" id="explore" class="clean-block clean-info bg-dark text-light">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-primary">Info</h2>
+                    <p>Become AI member for posting comments and replying and asking your questions and sorting out.</p>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6" data-aos="zoom-in" data-aos-duration="400" data-aos-delay="550" data-aos-once="true"><img class="img-thumbnail" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" src="assets/img/scenery/image5.jpg" title="BE INNOVATIVE AND CREATIVE"></div>
+                    <div class="col-md-6">
+                        <h3>BE INNOVATIVE &amp; CREATIVE</h3>
+                        <div class="getting-started-info">
+                            <p>Learn Amazing styling and style your web app and android app using our fantastic and mind blowing tips and tricks include images, audio files and video.</p>
+                        </div>
+                        <a class="nav-link" href="{% url 'join' %}">
+                            <button class="btn btn-primary shadow" id="login" type="button">
+                                Join Now
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section data-aos="fade-up" data-aos-duration="750" data-aos-delay="100" data-aos-once="true" class="clean-block features bg-dark text-light">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Features</h2>
+                    <p>Easy to use, access and visualize. I will provide source code, tips and tricks.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-5 feature-box"><i class="icon-star icon"></i>
+                        <h4>Try Best, Be Best, Become Best</h4>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                        <h4>Customizable</h4>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-screen-smartphone icon"></i>
+                        <h4>Responsive</h4>
+                    </div>
+                    <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                        <h4>All Browser Compatibility</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section data-bss-parallax-bg="true" id="about" class="about-us clean-block" style="background-image: url('/assets/img/img (109).jpg');background-position: center;background-size: cover;">
+            <div class="container mb-5">
+                <div class="block-heading">
+                    <h1 class="text-white">About Me</h1>
+                    <p></p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card text-center clean-card"><img class="img-fluid card-img-top w-100 d-block border rounded shadow-lg" data-bs-toggle="tooltip" data-bss-tooltip="" data-bs-placement="bottom" src="/assets/img/avatars/IMG_20191018_215240.jpg" alt="Ashutosh kumar" title="Ashutosh Kumar">
+                            <div class="card-body info bg-dark">
+                                <h5 class="card-title">Ashutosh Kumar</h5>
+                                <p class="card-text">My profile is on plezmo with name Biotech.</p>
+                                <div class="icons"><a href="https://github.com/ashutosh-biotech/"><i class="fab fa-github"></i></a>
+                                <a href="https://ashutosh2020.pythonanywhere.com/"><i class="fas fa-blog"></i></a>
+                                <a href="#"><i class="icon-globe"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock body %}

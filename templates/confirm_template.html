@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Confirmation</title>
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="/assets/js/sweetalert.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39+Extended&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="w3-container w3-teal">
+    <h1>AI - Email Verification</h1>
+  </header>
+  <div class="w3-container w3-half w3-margin-top" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);">
+    <form class="w3-container w3-card-4" method='POST' action=''>
+      {% csrf_token %}
+      <p>
+        <input class="w3-input" name='username' type="text" style="width: 90%" required
+          oninput="document.querySelector('form').action=`/email/verify/${this.value}`;" />
+        <label>UserName</label>
+      </p>
+      <p>
+        <input class="w3-input" name='user_password' type="password" style="width: 90%" required />
+        <label>Password</label>
+      </p>
+      <p>
+        <input class="w3-input" name='user_otp' type="text" style="width: 90%;font-family: 'Libre Barcode 39 Extended', cursive;" required />
+        <label>One Time Password(OTP)</label>
+      </p>
+      <p>
+        <button type='submit' class="w3-button w3-section w3-teal w3-ripple w3-round">Verify Me</button>
+      </p>
+    </form>
+  </div>
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        swal({ title: "{{ message }}", icon: "{{ message.tags }}", button: "Okay!", });
+      </script>
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <script>window.location.assign("{% url 'home' %}")</script>
+  {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+{% extends 'template.html' %}
+
+{% block title %}Get & Request{% endblock title %}
+
+{% block pics_url %}{{ pic }}{% endblock pics_url %}
+
+{% block body %}
+<main class="page faq-page">
+    <section class="clean-block clean-faq bg-dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Get App &amp; Request App!!!</h2>
+                <p>You can ask you query here and get reply as well. I will try my best out of best for your query.
+                    Thank you&nbsp;<i class="far fa-smile"></i></p>
+            </div>
+            <div class="border rounded block-content" style="max-height: 50rem;overflow: auto;box-shadow: 0px 2px 10px rgb(237, 18, 18);background-color: #000;padding: 40px;border-radius: 0.25rem !important;border: 1px solid #00abff !important;">
+                {% for app in app_data %}
+                <div class="card mb-3 bg-dark">
+                    <div class="card-body text-danger">
+                        <div class="faq-item">
+                            <h4 class="question">APP NAME =>&nbsp;<input type="text" class="form-control" readonly="" disabled=""
+                                    value="{{ app.name }}"></h4>
+                            <h4 class="question">Uploded on =>&nbsp;<span class="text-primary">{{ app.date_and_time | date }}</span></h4>
+                            <h4 class="question">Requested by =>&nbsp;<span class="text-warning text-uppercase">{{ app.request_by }}</span></h4>
+                            <div class="answer">
+                                <p><strong>Description =>&nbsp;</strong><small class="form-text">{{ app.desc }}</small>
+                                </p>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a href="https://ashutosh-biotech.github.io/ai.plezmo.com/{{ app.file_name }}"
+                                class="btn btn-outline-primary" role="button" download>Download</a>
+                            <a href="{{ app.web_app_url }}" class="btn btn-outline-primary" role="button">View (as
+                                webapp)</a>
+                            <a class="btn btn-primary" role="button"
+                                href="/blog">ask a query</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container text-end mt-5">
+            <button class="btn btn-outline-primary" type="button" onclick="{% if user.is_authenticated %}modal('open'){% else %}login(){% endif %}">REQUEST APP</button>
+        </div>
+        <div class="container mt-5">
+            <div class="table-responsive text-uppercase text-start border rounded" style="max-height: 50rem;">
+                <table class="table table-striped table-hover table-dark table-bordered">
+                    <thead style="position: sticky;top: 0px;">
+                        <tr class="text-danger">
+                            <th>User Name</th>
+                            <th>App Name</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in requested_app %}
+                        <tr>
+                            <td>{{ request.username }}</td>
+                            <td>{{ request.app_name }}</td>
+                            <td>{{ request.date }}</td>
+                            {% if request.status == 1 %}<td class="text-center" data-bs-toggle="tooltip" title="Pending....."><span role="status" class="spinner-border spinner-border-sm textprimary text-primary"></span></td>
+                            {% elif request.status == 2 %}<td class="text-center text-danger" data-bs-toggle="tooltip" title="Can not be completed or rejected"><i class="fas fa-times-circle"></i></td>
+                            {% elif request.status == 3 %}<td class="text-center" data-bs-toggle="tooltip" title="Accepted and working"><i class="fas fa-check mx-2 text-success"></i><i class="fas fa-pencil-ruler text-info"></i></td>
+                            {% elif request.status == 4%}<td class="text-center text-success" data-bs-toggle="tooltip" title="Completed as well as uploaded"><i class="fas fa-check-double"></i></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div role="dialog" tabindex="-1" class="modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-dark">Request an app</h4><button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close" onclick="modal('close')"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please describe about your request here such that it help developer to make it if possible.
+                        </p>
+                        <form method="post" action="{% url 'request' %}">
+                            <div class="mb-3">
+                            {% csrf_token %}
+                                    <input type="text" class="form-control" placeholder="Enter app name" name="appname" required/>
+                                    <textarea class="form-control mt-3" name="desc" placeholder="Description of app" required></textarea></div>
+                            <div class="modal-footer"><button class="btn btn-primary" type="submit">Save</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</main>
+<script>
+    {% if user.is_authenticated %}
+    let modal = (type)=>{
+        if (type == 'open') {
+            document.querySelector(".modal").classList.add('show');
+            document.querySelector(".modal").style.display="block";
+        }
+        if (type == 'close') {
+            document.querySelector(".modal").classList.remove('show');
+            document.querySelector(".modal").style.display="none";
+        }
+    }
+    {% else %}
+    let login = ()=>{
+        swal({
+            title:"Sign In",
+            text:"Sign in to get all the access for free and have fun with AI-plezmo without any limitation.",
+            icon:"info",
+            button:"Okay!"
+            });
+    }
+    {% endif %}
+</script>
+{% endblock body %}

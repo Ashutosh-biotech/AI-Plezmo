@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI - snippsets</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+  <style>
+    * {
+      font-family: 'cascadia code';
+      background: black;
+      color: white;
+    }
+
+    * {
+      scrollbar-color: red black;
+      scrollbar-width: thin;
+      scroll-behavior: smooth;
+      scroll-margin: 2px 2px;
+      scroll-padding: 2px 2px;
+    }
+
+
+    input[type="color"] {
+      border: none;
+      display: inline-block;
+      vertical-align: middle;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background-color: inherit;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      background-color: #555;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 7px 7px;
+      position: absolute;
+      z-index: 999;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip .tooltiptext::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #555 transparent transparent transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .btn {
+      border: none;
+      padding: 8px 16px;
+      vertical-align: middle;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .slidercontainer,
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 15px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: 0.2s;
+      transition: opacity 0.2s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #ff0077;
+      cursor: pointer;
+      border: none;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: #ff0077;
+      cursor: pointer;
+      border: none;
+    }
+
+    hr {
+      border-color: indigo;
+    }
+
+    input[type="color"]:hover,
+    .btn:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="w3-teal">
+    <p class="w3-center w3-teal" style="margin: 0px">AI plezmo coder</p>
+  </div>
+  <div id="content">
+
+    <div class="w3-display-container w3-margin-top w3-hde" id="style_input">
+      <div class="w3-row-padding">
+
+        <div class="w3-half">
+
+          <!-- ? Output section -->
+          <div class="w3-card">
+            <div class="w3-container w3-deep-orange">
+              <h3 class="w3-deep-orange">&#127755; OUTPUT </h3>
+            </div>
+            <div class="w3-container; w3-padding" id="output" style="overflow: auto;">
+              <input id="AI-input" style="outline-style: none;">
+            </div>
+          </div>
+          <!-- * output section over -->
+
+          <br>
+
+          <!-- ? code snippsets -->
+          <div class="w3-card">
+            <div class="w3-container w3-indigo">
+              <h3 style="display: inline-block;" class="w3-indigo">&#128013; Code Snippset</h3>
+              <div class="w3-right tooltip w3-margin" style="display: inline-block;">
+                <button onclick="myFunction()" onmouseout="outFunc()" class="w3-btn w3-hover-red w3-black w3-round"
+                  type="button">
+                  <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                  Copy Code
+                </button>
+              </div>
+            </div>
+            <div class="w3-container w3-display-container" id="code_snippset">
+              <textarea name="" id="code" class="w3-margin-top w3-disabled w3-margin-bottom w3-white"
+                style="position: relative;width: 100%;height:50vh;"></textarea>
+            </div>
+          </div>
+          <!-- * code snipset over -->
+
+        </div>
+
+        <div class="w3-half">
+
+          <div class="w3-threequarter" style="width: 85%;">
+            <div class="w3-card">
+              <div class="w3-container">
+                <h1 class="boost">&#10024; Lets Get Started</h1>
+              </div>
+              <div class="w3-container">
+
+                <!-- ? style section -->
+                <fieldset class="w3-margin w3-margin-bottom input_field"
+                  style="max-height: 70vh;overflow: auto;display: none;">
+                  <legend id="name_input">AI-input</legend>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Height</legend>
+                    <input type="number" class="w3-input"
+                      oninput="document.getElementById('AI-input').style.height=`${this.value}px`;codewrite();">
+
+                  </fieldset>
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Width</legend>
+                    <input type="number" class="w3-input"
+                      oninput="document.getElementById('AI-input').style.width=`${this.value}px`;codewrite();">
+
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Font</legend>
+                    <select name="" id="" class="w3-margin-top w3-select"
+                      oninput="document.getElementById('AI-input').style.fontFamily=`${this.value}`;codewrite();">
+                      <option value="'Courier New', Courier, monospace" selecte>Courier New</option>
+                      <option value="'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Franklin Gothic Medium
+                      </option>
+                      <option value="'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Gill Sans
+                      </option>
+                      <option
+                        value="'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                        Lucida Sans</option>
+                      <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Segoe UI</option>
+                      <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                      <option
+                        value="'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                        Trebuchet MS</option>
+                      <option value="Arial, Helvetica, sans-serif">Arial</option>
+                      <option value="Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">Cambria</option>
+                      <option value="Georgia, 'Times New Roman', Times, serif">Georgia</option>
+                      <option value="Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Impact</option>
+                      <option value="Verdana, Geneva, Tahoma, sans-serif">Verdana</option>
+                      <option value="cursive">cursive</option>
+                      <option value="fantacy">fantacy</option>
+                      <option value="monospace">monospace</option>
+                      <option value="sans-serif">sans-serif</option>
+                      <option value="serif">serif</option>
+                      <option
+                        value="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+                        -apple-system, BlinkMacSystemFont</option>
+                    </select>
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Color</legend>
+                    <input type="color"
+                      oninput="document.getElementById('AI-input').style.color=`${this.value}`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Background Color</legend>
+                    <input type="color" value="#ffffff"
+                      oninput="document.getElementById('AI-input').style.backgroundColor=`${this.value}`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Padding</legend>
+                    <input type="range" min="0" max="100" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.paddingTop=`${this.value}px`;codewrite();">
+                    <input type="range" min="0" max="100" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.paddingRight=`${this.value}px`;codewrite();">
+                    <input type="range" min="0" max="100" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.paddingBottom=`${this.value}px`;codewrite();">
+                    <input type="range" min="0" max="100" value="0" class="slider"
+                      oninput="document.getElementById('AI-input').style.paddingLeft=`${this.value}px`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Placeholder</legend>
+                    <input type="text" name="" id="" class="w3-input"
+                      oninput="document.getElementById('AI-input').setAttribute('placeholder',`${this.value}`);codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Specify the input type</legend>
+                    <select name="" id="type" class="w3-select"
+                      oninput="document.getElementById('AI-input').setAttribute('type',`${this.value}`);codewrite();">
+                      <option value="color">color</option>
+                      <option value="text" selected>text</option>
+                      <option value="button">button</option>
+                      <option value="checkbox">checkbox</option>
+                      <option value="date">date</option>
+                      <option value="datetime">datetime</option>
+                      <option value="email">email</option>
+                      <option value="file">file</option>
+                      <option value="hidden">hidden</option>
+                      <option value="number">number</option>
+                      <option value="password">password</option>
+                      <option value="radio">radio</option>
+                      <option value="range">range</option>
+                      <option value="time">time</option>
+                    </select>
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Border</legend>
+                    <input type="range" min="0" max="100" value="0" class="slider"
+                      oninput="document.getElementById('AI-input').style.borderWidth=`${this.value}px`;codewrite();">
+                    <select name="" id="" class="w3-margin-top w3-select"
+                      oninput="document.getElementById('AI-input').style.borderStyle=`${this.value}`;codewrite();">
+                      <option value="none" selecte>none</option>
+                      <option value="solid">solid</option>
+                      <option value="dashed">dashed</option>
+                      <option value="dotted">dotted</option>
+                      <option value="double">double</option>
+                      <option value="groove">groove</option>
+                      <option value="ridge">ridge</option>
+                    </select>
+                    <input type="color" name="" id="" class="w3-margin-top"
+                      oninput="document.getElementById('AI-input').style.borderColor=`${this.value}`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>CURVE</legend>
+                    <input type="range" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.borderTopLeftRadius=`${this.value}px`;codewrite();">
+                    <input type="range" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.borderTopRightRadius=`${this.value}px`;codewrite();">
+                    <input type="range" value="0" class="slider w3-margin-bottom"
+                      oninput="document.getElementById('AI-input').style.borderBottomRightRadius=`${this.value}px`;codewrite();">
+                    <input type="range" value="0" class="slider"
+                      oninput="document.getElementById('AI-input').style.borderBottomLeftRadius=`${this.value}px`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Transform</legend>
+                    <select name="" id="" class="w3-select"
+                      oninput="document.getElementById('AI-input').style.textTransform=`${this.value}`;codewrite();">
+                      <option value="uppercase">UPPERCASE</option>
+                      <option value="lowercase">LOWERCASE</option>
+                      <option value="capitalize">CAPITALIZE</option>
+                    </select>
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Margin</legend>
+                    <input type="range" min="0" max="100" value="0" class="slider"
+                      oninput="document.getElementById('AI-input').style.margin=`${this.value}px`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Size</legend>
+                    <input type="range" min="0" max="100" value="0" class="slider"
+                      oninput="document.getElementById('AI-input').style.fontSize=`${this.value}px`;codewrite();">
+                  </fieldset>
+
+                  <fieldset class="w3-margin w3-margin-bottom">
+                    <legend>Value</legend>
+                    <input type="text" class="w3-input"
+                      oninput="document.getElementById('AI-input').setAttribute('value',`${this.value}`);codewrite();">
+                  </fieldset>
+
+                </fieldset>
+                <!-- * style section over -->
+
+                <!-- ? js section for instant output -->
+                <fieldset class="w3-margin w3-margin-bottom input_control"
+                  style="max-height: 70vh;overflow: auto;display: none;">
+                  <legend>AI-input</legend>
+
+                  <!-- ? onmouseover effect with HTML DOM -->
+                  <fieldset class="w3-margin w3-margin-bottom input_control">
+                    <legend>mouseover &#128070;</legend>
+                    <fieldset class="w3-margin w3-margin-bottom">
+                      <legend>Color</legend>
+                      <input type="color" value="#000000" class="color">
+                    </fieldset>
+                    <fieldset class="w3-margin w3-margin-bottom">
+                      <legend>Background Color</legend>
+                      <input type="color" value="#ffffff" class="bgcolor">
+                    </fieldset>
+                    <button class="w3-btn w3-right w3-hover-blue w3-border-blue w3-round w3-border w3-text-blue"
+                      onclick="mouseover();">Proceed</button>
+                  </fieldset>
+                  <!-- * end of onmouseover HTML DOM -->
+
+                  <!-- ? onmouseout effect with HTML DOM -->
+                  <fieldset class="w3-margin w3-margin-bottom input_control">
+                    <legend>mouseout &#128074;</legend>
+                    <fieldset class="w3-margin w3-margin-bottom">
+                      <legend>Color</legend>
+                      <input type="color" value="#000000" class="color_out">
+                    </fieldset>
+                    <fieldset class="w3-margin w3-margin-bottom">
+                      <legend>Background Color</legend>
+                      <input type="color" value="#ffffff" class="bgcolor_out">
+                    </fieldset>
+                    <button class="w3-btn w3-right w3-hover-blue w3-border-blue w3-round w3-border w3-text-blue"
+                      onclick="mouseout();">Proceed</button>
+                  </fieldset>
+                  <!-- * end of onmouseout HTML DOM -->
+
+                </fieldset>
+                <!-- * js section end -->
+
+              </div>
+            </div>
+          </div>
+
+          <!-- ? side bar for navigation -->
+          <div class="w3-quarter" style="width: 12%">
+            <div class="w3-card">
+              <div class="w3-container w3-center w3-teal">
+                <h1 class="w3-teal">&#127756;</h1>
+              </div>
+              <div class="w3-container">
+                <div class="btn w3-right w3-round tooltip w3-margin-top w3-margin-left" type="button"
+                  onclick="style_css()">
+                  &#127776;<span class="tooltiptext">Styling of Tag</span></div>
+                <div class="btn w3-right w3-round tooltip w3-margin-top" type="button" onclick="script()">
+                  &#129504;<span class="tooltiptext">Responsible</span></div>
+                <div class="btn w3-right w3-round tooltip w3-margin-top w3-margin-bottom" type="button"
+                  onclick="window.location.reload()">
+                  &#10060;<span class="tooltiptext">Cancel</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- * side bar ended -->
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+<script>
+  const style_css = () => {
+    document.querySelector('.boost').innerHTML = "&#128044; Style";
+    document.querySelector('.input_field').style.display = 'block';
+    document.querySelector('.input_control').style.display = 'none';
+  };
+
+  const script = () => {
+    document.querySelector('.boost').innerHTML = "&#128170; Be Powerful";
+    document.querySelector('.input_field').style.display = 'none';
+    document.querySelector('.input_control').style.display = 'block';
+  };
+
+  function codewrite() {
+    document.getElementById('code').innerHTML = document.getElementById('output').innerHTML;
+  }
+
+  function myFunction() {
+    var copyText = document.getElementById("code");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerText = " Code Copied Successfully &#9989;";
+  }
+
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard &#128203;";
+  }
+
+  const mouseover = () => {
+    const input = document.querySelector('#AI-input');
+    const color = document.querySelector('.color').value;
+    const bgcolor = document.querySelector('.bgcolor').value;
+    input.setAttribute('onmouseover', `this.style.color='${color}';this.style.backgroundColor='${bgcolor}';`);
+    codewrite()
+  }
+
+  const mouseout = () => {
+    const input = document.querySelector('#AI-input');
+    const color = document.querySelector('.color_out').value;
+    const bgcolor = document.querySelector('.bgcolor_out').value;
+    input.setAttribute('onmouseout', `this.style.color='${color}';this.style.backgroundColor='${bgcolor}';`);
+    codewrite();
+  }
+
+  codewrite();
+</script>
+
+</html>

@@ -1,0 +1,36 @@
+{% extends 'template.html' %}
+
+{% block title %}Sign up{% endblock title %}
+
+{% block body %}
+<main class="page registration-page">
+    <section class="clean-block clean-form dark">
+        <div class="container">
+            <div class="block-heading">
+                <h2 class="text-info">Registration</h2>
+            </div>
+            <form method="POST" action="{% url 'join' %}">
+            {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" class="form-control item" id="name" placeholder="Enter your name" name="username" autofocus required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" class="form-control item" id="email" placeholder="Enter your email Id" name="useremail" inputmode="email" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" class="form-control item" id="password" required placeholder="Enter your password" name="password" onpaste="return false" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Re-Password</label>
+                    <input type="password" class="form-control item" id="re-password" name="password_repeat" placeholder="Re enter your password" onpaste="return false" required />
+                </div>
+
+                <button class="btn btn-outline-primary border rounded-pill border-primary shadow" type="submit">Create Account</button>
+            </form>
+        </div>
+    </section>
+</main>
+{% endblock body %}

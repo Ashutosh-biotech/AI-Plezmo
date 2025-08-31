@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% if user.is_authenticated %}
+        <script>window.location.assign("{% url 'home' %}")</script>
+    {% endif %}
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>AI - Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link href="/assets/Login 10_files/css.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/Login 10_files/A.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body class="img js-fullheight" style="background-image: url(/assets/img/index.webp); height: 100vh;">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">AI Login</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap p-0">
+                        <h3 class="mb-4 text-center">Have an account?</h3>
+                        <form action="{% url 'login' %}" method="POST" class="signin-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter Your Username" required name="username">
+                            </div>
+                            <div class="form-group">
+                                <input id="password-field" type="password" class="form-control" placeholder="Password" required name="user_password">
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password" style="cursor: pointer"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Sign In</button>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-inline">
+                                    <a href="{% url 'join' %}" class="border badge-pill" style="color: #fff">Create an Account</a>
+                                </div>
+                                <div class="d-inline">
+                                    <a href="{% url 'password_reset' %}" class="border badge-pill" style="color: #fff">Forgot Password</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/assets/Login 10_files/jquery.js"></script>
+    <script src="/assets/Login 10_files/popper.js"></script>
+    <script src="/assets/js/sweetalert.min.js"></script>
+    <script>
+        eval(mod_pagespeed_T07FyiNNgg);
+    </script>
+    <script>
+        eval(mod_pagespeed_zB8NXha7lA);
+    </script>
+    <script>
+        eval(mod_pagespeed_xfgCyuItiV);
+    </script>
+
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                swal({ title:"{{ message }}",  icon:"{{ message.tags }}",  button:"Okay!",});
+            </script>
+        {% endfor %}
+    {% endif %}
+</body>
+
+</html>

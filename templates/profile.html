@@ -1,0 +1,191 @@
+{% extends 'template.html' %}
+
+{% block title %}Profile settings{% endblock title %}
+
+{% block body %}
+<br><br><br><br><br>
+<div class="container-fluid">
+    <h3 class="mb-4">Profile</h3>
+    <div class="row mb-3">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    {% if profile.first_name %}
+                    {% if profile.last_name %}
+                    <h6 class="text-primary font-weight-bold m-0">Hello, {{ profile.first_name }} {{ profile.last_name}}
+                    </h6>
+                    {% else %}
+                    <h6 class="text-primary font-weight-bold m-0">Hello, {{ profile.first_name}}</h6>
+                    {% endif %}
+                    {% else %}
+                    <h6 class="text-primary font-weight-bold m-0">Hello, {{ profile.username}}</h6>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Server migration <span class="float-right">20%</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 20%;">
+                            <span class="sr-only">20%</span>
+                        </div>
+                    </div>
+                    <h4 class="small font-weight-bold">cookies used <span class="float-right">40%</span></h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 40%;">
+                            <span class="sr-only">40%</span>
+                        </div>
+                    </div>
+                    <h4 class="small font-weight-bold">Customer Database ACCESS <span class="float-right">60%</span>
+                    </h4>
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 60%;">
+                            <span class="sr-only">60%</span>
+                        </div>
+                    </div>
+                    <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
+                    {% if not profile.first_name == 'None'%}
+                    {% if not profile.last_name == 'None' %}
+                    {% if not profile.gender == 4 %}
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 100%;">
+                            <span class="sr-only">100%</span>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 80%;">
+                            <span class="sr-only">100%</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 60%;">
+                            <span class="sr-only">100%</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% else %}
+                    <div class="progress progress-sm mb-3">
+                        <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                            style="width: 40%;">
+                            <span class="sr-only">100%</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" style="align-items: center;justify-content: center;display: grid;">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-light font-weight-bold m-0" >Profile Picture</h6>
+                </div>
+                <div class="card-body" style="border: 5px solid gold;border-radius: 10px;height: 40vh;background-color: whitesmoke;">
+                    <img src="{% block pics_url %}{{ profile.logo }}{% endblock pics_url %}" alt="profile image of {{ profile.username }}" style="width: 100%;height: 100%;">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col">
+                    <div class="card shadow mb-3">
+                        <div class="card-header py-3">
+                            <p class="text-primary m-0 font-weight-bold">User Settings</p>
+                        </div>
+                        <div class="card-body">
+                            <form action="/{{ profile.username }}/update/profile" method="POST">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                <strong>Username</strong>
+                                            </label>
+                                            <input class="form-control" readonly="" disabled=""
+                                                value="{{ profile.username }}" type="email" id="email">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                <strong>Email Address</strong>
+                                            </label>
+                                            <input class="form-control" readonly="" disabled="" value="{{ user.email }}"
+                                                type="email" id="email">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="email">
+                                                <strong>Gender</strong>
+                                            </label>
+                                            {% if profile.gender == 1 %}
+                                            <select name="select" class="form-control" name="Gender">
+                                                <option value="male" selected>Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Others</option>
+                                            </select>
+                                            {% elif profile.gender == 2 %}
+                                            <select name="select" class="form-control" name="Gender">
+                                                <option value="male">Male</option>
+                                                <option value="female" selected>Female</option>
+                                                <option value="other">Others</option>
+                                            </select>
+                                            {% elif profile.gender == 3 %}
+                                            <select name="select" class="form-control" name="Gender">
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other" selected>Others</option>
+                                            </select>
+                                            {% else %}
+                                            <select name="select" class="form-control" name="Gender">
+                                                <option value="Unknown" selected>+-----------------+</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Others</option>
+                                            </select>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group"><label for="first_name">
+                                                <strong>First Name</strong>
+                                            </label>
+                                            <input class="form-control" type="text" id="first_name" placeholder="John"
+                                                name="first_name" value="{{ profile.first_name }}" required>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="last_name"><strong>Last Name</strong>
+                                            </label>
+                                            <input class="form-control" type="text" id="last_name" placeholder="Doe"
+                                                value="{{ profile.last_name }}" name="last_name">
+                                        </div>
+                                    </div>
+                                </div><br>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-sm" type="submit">Save Settings</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}
